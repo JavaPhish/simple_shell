@@ -4,10 +4,6 @@
 #include <string.h>
 #include <unistd.h>
 
-int print_env(char *envp[]);
-char *find_home_dir(char *envp[]);
-int change_directory(char **parsed_cmd, char *envp[]);
-
 /**
  * builtin_handler - Handles the execution of built in functions
  * @cmd: the commnd the user is attempting to run

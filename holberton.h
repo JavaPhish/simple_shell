@@ -10,5 +10,8 @@ int _contains(char *str, char *keyword);
 char *str_concat(char *s1, char *s2);
 char **cmd_parser(char *cmd_to_parse);
 char *_strcpy(char *dest, char *src);
+int print_env(char *envp[]);
+char *find_home_dir(char *envp[]);
+int change_directory(char **parsed_cmd, char *envp[]);
 
 #endif

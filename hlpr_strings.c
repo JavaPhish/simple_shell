@@ -1,3 +1,4 @@
+#include "holberton.h"
 
 /**
  * _strcpy - Non destructively copies a string
