@@ -27,10 +27,10 @@ int main(int argc, char *argv[], char *envp[])
 
 	while (chars_printed != EOF)
 	{
-		if (isatty(fileno(stdin)) == 1)
+		if (isatty(STDIN_FILENO) == 1 && isatty(STDOUT_FILENO))
 			write(1, "$ ", sizeof(char) * 2);
 
-	chars_printed = getline(&buffer, &buffer_size, stdin);
+		chars_printed = getline(&buffer, &buffer_size, stdin);
 
 		strtok_address = buffer;
 		buffer = strtok(buffer, "\n");
@@ -38,7 +38,7 @@ int main(int argc, char *argv[], char *envp[])
 		{
 			if (builtin_handler(buffer, envp) == 0)
 			{
-					pid = fork();
+				pid = fork();
 
 				if (pid == 0 && chars_printed != EOF)
 					execution_handler(buffer, envp);
