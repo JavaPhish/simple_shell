@@ -35,7 +35,8 @@ int main(int argc, char *argv[], char *envp[])
 		{
 			if (builtin_handler(buffer, envp) == 0)
 			{
-				pid = fork();
+				if (_contains(buffer, "|"))
+					pid = fork();
 				if (pid == 0)
 				{
 					if (execution_handler(buffer, envp) == -1)
@@ -49,8 +50,6 @@ int main(int argc, char *argv[], char *envp[])
 			}
 		}
 	}
-	free(buffer);
 	free(strtok_address);
-
 	return (1);
 }
