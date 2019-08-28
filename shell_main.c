@@ -27,22 +27,22 @@ int main(int argc, char *argv[], char *envp[])
 
 	while (chars_printed != EOF)
 	{
-		write(1, "$ ", sizeof(char) * 2);
-		chars_printed = getline(&buffer, &buffer_size, stdin);
+		if (isatty(fileno(stdin)) == 1)
+			write(1, "$ ", sizeof(char) * 2);
+
+	chars_printed = getline(&buffer, &buffer_size, stdin);
+
 		strtok_address = buffer;
 		buffer = strtok(buffer, "\n");
 		if (buffer != NULL)
 		{
 			if (builtin_handler(buffer, envp) == 0)
 			{
-				if (_contains(buffer, "|"))
+				if (isatty(fileno(stdin)) == 1)
 					pid = fork();
-				if (pid == 0)
-				{
-					if (execution_handler(buffer, envp) == -1)
-						printf("Error");
-					exit(EXIT_FAILURE);
-				}
+
+				if (pid == 0 && chars_printed != EOF)
+					execution_handler(buffer, envp);
 				else
 					do
 						waitpid(pid, &status, WUNTRACED);
