@@ -1,0 +1,86 @@
+.TH hsh 1 "29 August 2019" "version 1.0"
+
+.SH NAME
+
+    hsh - a simple command interpreter (shell)
+
+.SH SYNOPSIS
+
+.B int printf (const char *
+.I format
+.B , ...);
+
+.SH DESCRIPTION
+.B hsh
+(Holberton shell) is an implementation of a shell in C that seeks to emulate the basic functionality of the original sh (Thompson shell), but hopefully with much-improved memory management!
+
+.SH Overview
+
+The hsh utilizes a dynamic memory allocation system in an attempt to ensure no memory leakages. The hsh is able to be utilized in interactive and non-interactive modes. It reads from standard input and parses the input, interpreting if commands are builtins or system commands. It initializes non-builtin commands utilizing the 
+.B fork() 
+function to ensure that the shell program remains active in the parent process whilst and until execution completes. 
+
+.SH Invocation
+
+As the hsh emulates basic shell functionality, the following limitations are observed:
+
+-   Commands must be on a single line.
+
+-   Arguments must be separated by whitespace.
+
+-   No quoting arguments or escaping whitespace.
+
+-   No piping or redirection.
+
+-   Only builtins are:  `cd`,  `env`,  `exit`
+.PP
+.SH Return value
+Upon successful return, this function returns the number of characters printed (excluding the null byte used to end output to strings).
+.PP
+.SH Format of the format string
+The format string is a character string composed of zero or more directives. Ordinary characters (except %) are copied unchanged to output. %
+.I [character] 
+is a conversion specifier, the argument of which will be fetched. 
+.PP
+.SH Conversion specifiers
+.B b
+The int argument is converted to signed binary notation, and is written.
+
+.B c 
+The int argument is converted to an unsigned char, and is written.
+
+.B d 
+The int argument is converted to signed decimal notation, and is written.
+
+.B i 
+The int argument is converted to signed decimal notation, and is written.
+
+.B r 
+The char* argument of a pointer to an array of characters is reversed, and is written.
+
+.B R
+The char* argument of a pointer to an array of characters is encoded using the ROT13 cipher, and is written.
+
+.B s 
+The char* argument of a pointer to an array of characters is written.
+
+.B % 
+A ‘%’ is written. No argument is converted. 
+.I ‘%%’
+is complete specification.
+.PP
+.SH OPTIONS
+.PP
+.SH BUGS
+
+    Valgrind is known to report errors that, as far as can be ascertained, do not adversely influence program operation.
+
+.SH AUTHORS
+
+Carter Clements (carter.clements@holbertonschool.com)
+
+Gareth Brickman (gareth.brickman@holbertonschool.com)
+
+.SH SEE ALSO
+
+   sh(1), csh(1), ksh(1), bash(1)
