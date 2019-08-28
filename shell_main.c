@@ -38,7 +38,6 @@ int main(int argc, char *argv[], char *envp[])
 		{
 			if (builtin_handler(buffer, envp) == 0)
 			{
-				if (isatty(fileno(stdin)) == 1)
 					pid = fork();
 
 				if (pid == 0 && chars_printed != EOF)
