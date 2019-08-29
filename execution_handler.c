@@ -17,8 +17,8 @@ int execution_handler(char *cmd, char **env)
 {
 	char *bin_path = find_path(env);
 	char *path_with_cmd, *path_tokenizer, *path_to_free;
-	char **arr_of_args;
-	int path_attempts;
+	char **arr_of_args = NULL;
+	int path_attempts = 0;
 
 	arr_of_args = cmd_parser(cmd);
  /*
@@ -50,6 +50,7 @@ int execution_handler(char *cmd, char **env)
 	}
 	write(1, arr_of_args[0], sizeof(arr_of_args));
 	write(1, ": command not found\n", sizeof(": command not found\n"));
+
 	free(path_to_free);
 	free(path_with_cmd);
 
