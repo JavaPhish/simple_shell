@@ -10,7 +10,7 @@
  * execution_handler - Executes the given command
  * @cmd: The command passed on by the user (not ready for execve)
  * @env: The environment variable from origin main
- *
+ * @arg1: Contains executable name for use in error handling
  * Return: 1 on success, 0 if failure;
  */
 int execution_handler(char *cmd, char **env, char *arg1)
@@ -29,13 +29,10 @@ int execution_handler(char *cmd, char **env, char *arg1)
 	path_tokenizer = strtok(bin_path, ":");
 	path_to_free = path_tokenizer;
 	path_attempts = 0;
-
 	path_with_cmd = malloc(sizeof(cmd));
 	_strcpy(path_with_cmd, cmd);
-
 	while (path_tokenizer != NULL)
 	{
-
 		if (access(path_with_cmd, F_OK) == 0)
 		{
 			execve(path_with_cmd, arr_of_args, NULL);
@@ -49,14 +46,12 @@ int execution_handler(char *cmd, char **env, char *arg1)
 			path_tokenizer = strtok(NULL, ":");
 		path_attempts++;
 	}
-
-
 	write(1, arg1, sizeof_string(arg1) * sizeof(char));
 	write(1, " 1: ", sizeof("1: "));
 	write(1, arr_of_args[0], sizeof(arr_of_args));
 	write(1, ": not found\n", sizeof(": not found\n"));
-
+	free(path_to_free);
+	free(path_with_cmd);
 	free_2d_array(arr_of_args);
-
 	return (0);
 }
