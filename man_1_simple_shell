@@ -6,7 +6,7 @@
 
 .SH SYNOPSIS
 
-.B hsh
+.B ./hsh
 .I [command] [option/argument]
 
 .SH DESCRIPTION
@@ -19,7 +19,7 @@ The hsh utilizes a dynamic memory allocation system in an attempt to ensure no m
 .B fork() 
 function to ensure that the shell program remains active in the parent process whilst and until execution completes. 
 
-.SH Invocation
+.SS Invocation
 
 As the hsh emulates basic shell functionality, the following limitations are observed:
 
@@ -33,7 +33,7 @@ As the hsh emulates basic shell functionality, the following limitations are obs
 
 -   Only builtins are:  `cd`,  `env`,  `exit`
 .PP
-.SH Simple Commands
+.SS Simple Commands
 When locating a command, the shell first looks to see if it has a shell function by that name.  Then it looks for a builtin command by that name.
 
 If a builtin command is not found, one of two things happen:
@@ -43,6 +43,43 @@ If a builtin command is not found, one of two things happen:
 2. The shell searches each entry in PATH in turn for the command. The value of the PATH variable should be a series of entries separated by colons. Each entry consists of a directory name. The shell will tokenize these directories so that commands can be appended to the end of them for execution.
 .PP
 3. Remaining terms after the command are considered as options/arguments and recognized as such by the executing program.
+.PP
+.SH EXAMPLES
+.SS Interactive Mode
+$ ./hsh
+
+($) /bin/ls
+
+hsh main.c shell.c
+
+($)
+
+($) exit
+
+$
+.PP
+.SS Non-interactive Mode
+$ echo "/bin/ls" | ./hsh
+
+hsh main.c shell.c test_ls_2
+
+$
+
+$ cat test_ls_2
+
+/bin/ls
+
+/bin/ls
+
+$
+
+$ cat test_ls_2 | ./hsh
+
+hsh main.c shell.c test_ls_2
+
+hsh main.c shell.c test_ls_2
+
+$
 .PP
 .SH OPTIONS
 .PP
