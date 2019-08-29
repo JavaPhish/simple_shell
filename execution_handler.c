@@ -51,7 +51,7 @@ int execution_handler(char *cmd, char **env, char *arg1)
 	}
 
 
-	write(1, arg1, sizeof(arg1));
+	write(1, arg1, sizeof_string(arg1) * sizeof(char));
 	write(1, " 1: ", sizeof("1: "));
 	write(1, arr_of_args[0], sizeof(arr_of_args));
 	write(1, ": not found\n", sizeof(": not found\n"));
