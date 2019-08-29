@@ -104,7 +104,7 @@ char *str_concat(char *s1, char *s2)
 	str2Size = 0;
 	while (s2[str2Size] != '\0')
 		str2Size++;
-        str2Size++;
+	str2Size++;
 	arr = malloc((str1Size + str2Size) * sizeof(char));
 
 	if (!arr)
@@ -120,7 +120,7 @@ char *str_concat(char *s1, char *s2)
 		else
 			arr[loop] = s1[loop];
 	}
-        arr[loop] = '\0';
+	arr[loop] = '\0';
 	return (arr);
 }
 
