@@ -40,7 +40,15 @@ int main(int argc, char *argv[], char *envp[])
 				pid = fork();
 
 				if (pid == 0 && chars_printed != EOF)
-					execution_handler(buffer, envp, argv[0]);
+				{
+					if (execution_handler(buffer, envp, argv[0]) == -1)
+					{
+						perror(argv[0]);
+						exit(0);
+					}
+					else if (pid < 0)
+						perror(argv[0]);
+				}
 				else
 					do
 						waitpid(pid, &status, WUNTRACED);
