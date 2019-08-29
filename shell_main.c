@@ -17,11 +17,11 @@
 int main(int argc, char *argv[], char *envp[])
 {
 	char *buffer = NULL;
-	char *strtok_address;
+	char *strtok_address = NULL;
 	size_t buffer_size = 0;
 	int chars_printed = 0;
 	pid_t pid;
-	int status;
+	int status = 0;
 	(void)argc;
 	(void)argv;
 
@@ -49,6 +49,9 @@ int main(int argc, char *argv[], char *envp[])
 			}
 		}
 	}
+
 	free(strtok_address);
-	return (1);
+	exit(0);
+
+	return (0);
 }
