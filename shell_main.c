@@ -12,7 +12,7 @@
  * @argv: Casted to void(Unused)
  * @envp: Used to find the path containing system commands
  *
- * Return: 1 on success, 0 on screw up
+ * Return: 1 on success, 0 on failure
  */
 int main(int argc, char *argv[], char *envp[])
 {
