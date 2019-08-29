@@ -26,8 +26,8 @@ int builtin_handler(char *cmd, char *envp[])
 	else
 	if (_strcmp(parsed_cmd[0], "exit") == 0)
 	{
-		exit(0);
 		free_2d_array(parsed_cmd);
+		exit(0);
 		return (1);
 	}
 	else
