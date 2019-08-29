@@ -20,12 +20,14 @@ int builtin_handler(char *cmd, char *envp[])
 	if (_strcmp(parsed_cmd[0], "env") == 0)
 	{
 		print_env(envp);
+		free_2d_array(parsed_cmd);
 		return (1);
 	}
 	else
 	if (_strcmp(parsed_cmd[0], "exit") == 0)
 	{
-		exit(1);
+		exit(0);
+		free_2d_array(parsed_cmd);
 		return (1);
 	}
 	else
@@ -33,11 +35,15 @@ int builtin_handler(char *cmd, char *envp[])
 	{
 
 		if (change_directory(parsed_cmd, envp) == 1)
+		{
+			free_2d_array(parsed_cmd);
 			return (1);
-
+		}
+		free_2d_array(parsed_cmd);
 		return (0);
 	}
 
+	free_2d_array(parsed_cmd);
 	return (0);
 }
 
@@ -67,6 +73,8 @@ char *find_home_dir(char *envp[])
 		home_path[loop - 5] = rm_home[loop];
 		loop++;
 	}
+
+	free(rm_home);
 
 	return (home_path);
 }
@@ -116,9 +124,8 @@ int change_directory(char **parsed_cmd, char *envp[])
  */
 int print_env(char *envp[])
 {
-	int loop;
+	int loop = 0;
 
-	loop = 0;
 	while (envp[loop] != NULL)
 	{
 		write(1, envp[loop], sizeof_string(envp[loop]));
