@@ -13,7 +13,7 @@
  *
  * Return: 1 on success, 0 if failure;
  */
-int execution_handler(char *cmd, char **env)
+int execution_handler(char *cmd, char **env, char *arg1)
 {
 	char *bin_path = find_path(env);
 	char *path_with_cmd, *path_tokenizer, *path_to_free;
@@ -41,6 +41,7 @@ int execution_handler(char *cmd, char **env)
 			execve(path_with_cmd, arr_of_args, NULL);
 			free(path_to_free);
 			free(path_with_cmd);
+			free_2d_array(arr_of_args);
 			return (1);
 		}
 		path_with_cmd = str_concat(path_tokenizer, str_concat("/", arr_of_args[0]));
@@ -48,11 +49,14 @@ int execution_handler(char *cmd, char **env)
 			path_tokenizer = strtok(NULL, ":");
 		path_attempts++;
 	}
-	write(1, arr_of_args[0], sizeof(arr_of_args));
-	write(1, ": command not found\n", sizeof(": command not found\n"));
 
-	free(path_to_free);
-	free(path_with_cmd);
+
+	write(1, arg1, sizeof(arg1));
+	write(1, " 1: ", sizeof("1: "));
+	write(1, arr_of_args[0], sizeof(arr_of_args));
+	write(1, ": not found\n", sizeof(": not found\n"));
+
+	free_2d_array(arr_of_args);
 
 	return (0);
 }
