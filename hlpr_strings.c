@@ -31,7 +31,7 @@ char *_strcpy(char *dest, char *src)
  */
 int sizeof_string(char *str)
 {
-	int size_counter;
+	int size_counter = 0;
 
 	size_counter = 0;
 	while (str[size_counter] != '\0')
@@ -51,8 +51,7 @@ int sizeof_string(char *str)
  */
 int _strcmp(char *s1, char *s2)
 {
-	int loop;
-
+	int loop = 0;
 
 	loop = 0;
 	while (loop > -1)
@@ -82,7 +81,8 @@ int _strcmp(char *s1, char *s2)
  */
 int _contains(char *str, char *keyword)
 {
-	int loop, check_loop;
+	int loop = 0;
+	int check_loop = 0;
 
 	check_loop = 0;
 
