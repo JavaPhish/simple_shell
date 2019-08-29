@@ -13,7 +13,7 @@
  */
 int builtin_handler(char *cmd, char *envp[])
 {
-	char **parsed_cmd;
+	char **parsed_cmd = NULL;
 
 	parsed_cmd = cmd_parser(cmd);
 
