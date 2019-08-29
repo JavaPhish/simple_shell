@@ -13,5 +13,6 @@ char *_strcpy(char *dest, char *src);
 int print_env(char *envp[]);
 char *find_home_dir(char *envp[]);
 int change_directory(char **parsed_cmd, char *envp[]);
+void free_2d_array(char **);
 
 #endif
