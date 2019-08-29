@@ -6,9 +6,8 @@
 
 .SH SYNOPSIS
 
-.B int printf (const char *
-.I format
-.B , ...);
+.B hsh
+.I [command] [option/argument]
 
 .SH DESCRIPTION
 .B hsh
@@ -34,40 +33,16 @@ As the hsh emulates basic shell functionality, the following limitations are obs
 
 -   Only builtins are:  `cd`,  `env`,  `exit`
 .PP
-.SH Return value
-Upon successful return, this function returns the number of characters printed (excluding the null byte used to end output to strings).
+.SH Simple Commands
+When locating a command, the shell first looks to see if it has a shell function by that name.  Then it looks for a builtin command by that name.
+
+If a builtin command is not found, one of two things happen:
+
+1. Command names containing a slash are simply executed without a search.
 .PP
-.SH Format of the format string
-The format string is a character string composed of zero or more directives. Ordinary characters (except %) are copied unchanged to output. %
-.I [character] 
-is a conversion specifier, the argument of which will be fetched. 
+2. The shell searches each entry in PATH in turn for the command. The value of the PATH variable should be a series of entries separated by colons. Each entry consists of a directory name. The shell will tokenize these directories so that commands can be appended to the end of them for execution.
 .PP
-.SH Conversion specifiers
-.B b
-The int argument is converted to signed binary notation, and is written.
-
-.B c 
-The int argument is converted to an unsigned char, and is written.
-
-.B d 
-The int argument is converted to signed decimal notation, and is written.
-
-.B i 
-The int argument is converted to signed decimal notation, and is written.
-
-.B r 
-The char* argument of a pointer to an array of characters is reversed, and is written.
-
-.B R
-The char* argument of a pointer to an array of characters is encoded using the ROT13 cipher, and is written.
-
-.B s 
-The char* argument of a pointer to an array of characters is written.
-
-.B % 
-A ‘%’ is written. No argument is converted. 
-.I ‘%%’
-is complete specification.
+3. Remaining terms after the command are considered as options/arguments and recognized as such by the executing program.
 .PP
 .SH OPTIONS
 .PP
