@@ -23,7 +23,6 @@ int main(int argc, char *argv[], char *envp[])
 	pid_t pid;
 	int status = 0;
 	(void)argc;
-	(void)argv;
 
 	while (chars_printed != EOF)
 	{
@@ -41,7 +40,7 @@ int main(int argc, char *argv[], char *envp[])
 				pid = fork();
 
 				if (pid == 0 && chars_printed != EOF)
-					execution_handler(buffer, envp);
+					execution_handler(buffer, envp, argv[0]);
 				else
 					do
 						waitpid(pid, &status, WUNTRACED);
